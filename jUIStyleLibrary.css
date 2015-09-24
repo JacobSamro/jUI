@@ -1,0 +1,21 @@
+GtkWindow {
+    background-color: #FFF;
+    border: 1px solid #DDD;
+
+}
+
+GtkButton {
+    color: #222222;
+    border-radius: 3px;
+    border: 1px solid #DDD;
+    background: #f1f1f1;
+    font: FreeSans 13px;
+}
+
+GtkButton:hover {
+    background: #DDD;
+}
+
+GtkButton:active {
+    background: #D5D5D5;
+}
