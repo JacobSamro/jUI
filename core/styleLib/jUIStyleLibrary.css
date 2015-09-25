@@ -1,3 +1,7 @@
+* {
+	-GtkHTML-link-color: #222;
+}
+
 GtkWindow {
     background-color: #FFF;
     border: 1px solid #DDD;
@@ -18,4 +22,19 @@ GtkButton:hover {
 
 GtkButton:active {
     background: #D5D5D5;
+}
+
+GtkProgressBar{
+	background-color: #4876FF;
+    font-weight: bold;
+    font-size: 30px;
+    border: 0px;
+    border-radius: 3px; 
+    border-style: inset;
+}
+
+.header-bar{
+    background: #DDDDDD;
+    color: #222;
+    border: 0px;
 }

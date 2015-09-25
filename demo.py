@@ -4,11 +4,15 @@ from jUI import *
 class DemoApp(Window):
 
     def __init__(self):
-
         Window.__init__(self, title="Button Demo")
+        jUI().UiInit(Window,self)
+
+        self.set_decorated(True)
         self.set_border_width(10)
 
-        hbox = Box(spacing=6)
+
+        hbox = Gtk.Box(spacing=6)
+
         self.add(hbox)
 
         button = jUI().Button("Hello")
@@ -21,7 +25,6 @@ class DemoApp(Window):
         button = jUI().LinkButton("Google","http://google.com")
         button.connect("clicked", self.on_close_clicked)
         hbox.pack_start(button, True, True, 0)
-
         
 
         self.progressbar = ProgressBar()
@@ -29,6 +32,14 @@ class DemoApp(Window):
 
         self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
         self.activity_mode = False
+
+
+    def im_pressed(self,button):
+        print("I' clicked")
+        Cursor = Gdk.Cursor
+        pos = Window.get_pointer(self)
+        print(pos[1])
+        Window.move(self,pos[0],pos[1])
 
     def on_show_text_toggled(self, button):
         show_text = button.get_active()
