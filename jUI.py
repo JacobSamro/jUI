@@ -24,6 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 from gi.repository import Gtk, Gdk, GObject, Gio
 
 Window      =   Gtk.Window
@@ -38,6 +39,7 @@ class jUI:
     __Self      =   ""
 
     def __init__(self):
+        pass
         css = Gtk.CssProvider()
         css.load_from_path('core/styleLib/jUIStyleLibrary.css')
         screen = Gdk.Screen.get_default()
@@ -64,11 +66,18 @@ class jUI:
         s.set_titlebar(hb)
 
         buttonMin = Gtk.Button()
-        buttonMin.connect("clicked", self.maximize)
+        #buttonMin.connect("clicked", self.minimize)
         image = Gtk.Image()
         image.set_from_file("core/icons/minimize.png")
         buttonMin.add(image)
         hb.pack_end(buttonMin)
+
+        buttonMax = Gtk.Button()
+        buttonMax.connect("clicked", self.maximize)
+        image = Gtk.Image()
+        image.set_from_file("core/icons/maximize.png")
+        buttonMax.add(image)
+        hb.pack_end(buttonMax)
 
         buttonClose = Gtk.Button()
         buttonClose.connect("clicked", Gtk.main_quit)
@@ -76,8 +85,6 @@ class jUI:
         image.set_from_file("core/icons/close.png")
         buttonClose.add(image)
         hb.pack_end(buttonClose)
-
-
         
 
         box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
@@ -91,9 +98,23 @@ class jUI:
     def getSelf(self):
         return self.__Self
 
+    def getSelfOrigin(self):
+        return self;
+
     def maximize(ins,win):
-        print(ins.getWindow())
+        print(ins)
+        print(win)
+        win.connect('window-state-event', win.maximize)
         ins.getWindow().maximize(ins.getSelf())
+        
+
+    def maxMinHandler(self,win,event):
+        print 'connected'
+        if event.changed_mask & Gtk.gdk.WINDOW_STATE_ICONIFIED:
+            if event.new_window_state & Gtk.gdk.WINDOW_STATE_ICONIFIED:
+                print 'Window was minimized!'
+            else:
+                print 'Window was unminimized!'
 
 
 

@@ -4,7 +4,7 @@ from jUI import *
 class DemoApp(Window):
 
     def __init__(self):
-        Window.__init__(self, title="Button Demo")
+        Window.__init__(self)
         jUI().UiInit(Window,self)
 
         self.set_decorated(True)
@@ -23,7 +23,7 @@ class DemoApp(Window):
         hbox.pack_start(button, True, True, 0)
 
         button = jUI().LinkButton("Google","http://google.com")
-        button.connect("clicked", self.on_close_clicked)
+        button.connect("clicked", self.on_click_me_clicked)
         hbox.pack_start(button, True, True, 0)
         
 
@@ -36,35 +36,10 @@ class DemoApp(Window):
 
     def im_pressed(self,button):
         print("I' clicked")
-        Cursor = Gdk.Cursor
-        pos = Window.get_pointer(self)
-        print(pos[1])
-        Window.move(self,pos[0],pos[1])
 
-    def on_show_text_toggled(self, button):
-        show_text = button.get_active()
-        if show_text:
-            text = "some text"
-        else:
-            text = None
-        self.progressbar.set_text(text)
-        self.progressbar.set_show_text(show_text)
-
-    def on_activity_mode_toggled(self, button):
-        self.activity_mode = button.get_active()
-        if self.activity_mode:
-            self.progressbar.pulse()
-        else:
-            self.progressbar.set_fraction(0.0)
-
-    def on_right_to_left_toggled(self, button):
-        value = button.get_active()
-        self.progressbar.set_inverted(value)
 
     def on_timeout(self, user_data):
-        """
-        Update value on the progress bar
-        """
+
         if self.activity_mode:
             self.progressbar.pulse()
         else:
@@ -75,8 +50,6 @@ class DemoApp(Window):
 
             self.progressbar.set_fraction(new_value)
 
-        # As this is a timeout function, return True so that it
-        # continues to get called
         return True
 
     def on_click_me_clicked(self, button):
@@ -85,9 +58,6 @@ class DemoApp(Window):
     def on_open_clicked(self, button):
         print("\"Open\" button was clicked")
 
-    def on_close_clicked(self, button):
-        print("Closing application")
-        Gtk.main_quit()
 
 win = DemoApp()
 win.connect("delete-event", Gtk.main_quit)
